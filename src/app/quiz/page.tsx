@@ -173,7 +173,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Player } from "@lottiefiles/react-lottie-player";
 import he from "he";
 
-export default function page() {
+export default function Page() {
   const [questions, setQuestions] = useState([]);
   const [selectedAnswer, setSelectedAnswer] = useState("");
   const [answer, setAnswer] = useState("");
