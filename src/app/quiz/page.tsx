@@ -178,7 +178,7 @@ export default function Page() {
     incorrect_answers: string[];
     difficulty: string;
     type: string;
-    question: string; // Ensure question is included
+    question: string;
   };
 
   const [questions, setQuestions] = useState<QuestionT[]>([]);
@@ -203,19 +203,20 @@ export default function Page() {
 
         const { results } = response.data;
 
-        let shuffledResults: QuestionT[] = results.map((e: QuestionT) => {
+        const shuffledResults: QuestionT[] = results.map((e: any) => {
           let value = [...e.incorrect_answers, e.correct_answer]
-            .map((value) => ({ value, sort: Math.random() }))
+            .map((value: any) => ({ value, sort: Math.random() }))
             .sort((a, b) => a.sort - b.sort)
             .map(({ value }) => value);
-          e.answers = [...value];
-          return e;
+          return { ...e, answers: value };
         });
+
         console.log(shuffledResults, "shuffled");
         setQuestions(shuffledResults);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching questions:", error);
+        setLoading(false);
       }
     }
 
@@ -288,7 +289,7 @@ export default function Page() {
             {questions.length ? decode(questions[0].question) : null}
           </h4>
           <div className="flex justify-evenly items-center my-10 flex-wrap w-[90%]">
-            {questions[0].answers.map((ans) => (
+            {questions[0].answers.map((ans: string) => (
               <button
                 key={ans}
                 onClick={() => checkAnswer(ans)}
