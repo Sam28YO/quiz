@@ -234,7 +234,7 @@ export default function Page() {
   const checkAnswer = (answer: string) => {
     setSelectedAnswer(answer);
     if (answer === questions[0].correct_answer) {
-      setScore(0);
+      setScore();
     }
     setAnswer(questions[0].correct_answer);
   };
